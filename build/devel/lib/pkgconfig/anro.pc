@@ -1,0 +1,8 @@
+prefix=/home/alobach/catkin_ws/src/anro/build/devel
+
+Name: anro
+Description: Description of anro
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/alobach/catkin_ws/src/anro/build/devel/lib 
+Requires: 
