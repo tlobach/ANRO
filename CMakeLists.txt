@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(anro)
+project(anro3)
 
 ## Add support for C++11, supported in ROS Kinetic and newer
 # add_definitions(-std=c++11)
@@ -8,9 +8,16 @@ project(anro)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  kdl_conversions
+  kdl_parser
   roscpp
   rospy
+  sensor_msgs
   std_msgs
+  tf
+  urdf
+  geometry_msgs
+  std_srvs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,8 +111,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES anro
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+#  LIBRARIES anro3
+#  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
 )
 
@@ -122,9 +129,13 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/anro.cpp
+#   src/${PROJECT_NAME}/anro3.cpp
 # )
-
+include_directories(include ${catkin_INCLUDE_DIRS})
+add_executable(NON_KDL src/NON_KDL.cpp)
+target_link_libraries(NON_KDL ${catkin_LIBRARIES})
+add_executable(KDL src/KDL.cpp)
+target_link_libraries(KDL ${catkin_LIBRARIES})
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -133,7 +144,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/anro_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/anro3_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -184,23 +195,26 @@ include_directories(
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
+install(
+  DIRECTORY launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  FILES_MATCHING PATTERN "*.launch"
+)
 
+install(
+  DIRECTORY urdf
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  FILES_MATCHING PATTERN "*.urdf"
+)
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_anro.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_anro3.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-include_directories(include ${catkin_INCLUDE_DIRS})
-
-add_executable(nashkod src/nashkod.cpp)
-target_link_libraries(nashkod ${catkin_LIBRARIES})
-
-
-
