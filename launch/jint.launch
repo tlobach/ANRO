@@ -1,0 +1,19 @@
+<launch>
+	<arg name="model" default='$(find anro4)/urdf/dynamic_robot.urdf'/>
+	<arg name="gui" default="True" />
+	<param name="robot_description"  textfile="$(arg model)" />
+	<param name="use_gui" value="$(arg gui)"/>
+
+	<param name="arm1" type="double" value="0.9" />
+	<param name="arm2" type="double" value="0.6" />
+	<param name="d1" type="double" value="0.5" />
+	<param name="joint2_lower" type="double" value="-2.9" />
+	<param name="joint2_upper" type="double" value="2.9" />
+	<param name="joint3_lower" type="double" value="-0.15" />
+	<param name="joint3_upper" type="double" value="0.05" />
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	<node name="jint" pkg="anro4" type="jint" output="screen"/>
+	<node name="jcmd" pkg="anro4" type="jcmd" output="screen"/>
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find anro4)/rviz/my_robot.rviz" required="true" />
+</launch>

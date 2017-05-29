@@ -1,0 +1,8 @@
+<launch>
+	<arg name="rvizcongig" default="$(find anro4)/rviz/my_robot.rviz"/>	
+	<param name="use_gui" value="true"/>
+
+	<node name="oint" pkg="anro4" type="oint" output="screen"/>
+	<node name="ocmd" pkg="anro4" type="ocmd" output="screen"/>
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find anro4)/rviz/my_robot.rviz" required="true" />
+</launch>
