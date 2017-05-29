@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-<<<<<<< HEAD
-project(anro4)
-=======
-project(anro3)
->>>>>>> e9afb598f24f886246caffb075bcf923fafa26f8
+project(anro2)
 
 ## Add support for C++11, supported in ROS Kinetic and newer
 # add_definitions(-std=c++11)
@@ -23,7 +19,6 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   std_srvs
 )
-
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -77,22 +72,6 @@ find_package(catkin REQUIRED COMPONENTS
 #   Action1.action
 #   Action2.action
 # )
-<<<<<<< HEAD
-add_service_files(
-  FILES
-  jint_control_srv.srv
-  oint_control_srv.srv
-)
-## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
-=======
 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
@@ -100,7 +79,6 @@ generate_messages(
 #   std_msgs
 # )
 
->>>>>>> e9afb598f24f886246caffb075bcf923fafa26f8
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
 ################################################
@@ -132,13 +110,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-<<<<<<< HEAD
-#  LIBRARIES anro4
-#  CATKIN_DEPENDS roscpp
-=======
-#  LIBRARIES anro3
+#  LIBRARIES anro2
 #  CATKIN_DEPENDS roscpp std_msgs
->>>>>>> e9afb598f24f886246caffb075bcf923fafa26f8
 #  DEPENDS system_lib
 )
 
@@ -155,19 +128,12 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-<<<<<<< HEAD
-#   src/${PROJECT_NAME}/anro4.cpp
+#   src/${PROJECT_NAME}/anro2.cpp
 # )
-
-=======
-#   src/${PROJECT_NAME}/anro3.cpp
-# )
-include_directories(include ${catkin_INCLUDE_DIRS})
-add_executable(NON_KDL src/NON_KDL.cpp)
-target_link_libraries(NON_KDL ${catkin_LIBRARIES})
-add_executable(KDL src/KDL.cpp)
-target_link_libraries(KDL ${catkin_LIBRARIES})
->>>>>>> e9afb598f24f886246caffb075bcf923fafa26f8
+add_executable(dhtoURDF src/dhtoURDF.cpp)
+add_dependencies(dhtoURDF anro2_generate_messages_cpp)
+add_executable(parser src/parser.cpp)
+add_dependencies(parser anro2_generate_messages_cpp)
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -176,11 +142,7 @@ target_link_libraries(KDL ${catkin_LIBRARIES})
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-<<<<<<< HEAD
-# add_executable(${PROJECT_NAME}_node src/anro4_node.cpp)
-=======
-# add_executable(${PROJECT_NAME}_node src/anro3_node.cpp)
->>>>>>> e9afb598f24f886246caffb075bcf923fafa26f8
+# add_executable(${PROJECT_NAME}_node src/anro2_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -196,6 +158,14 @@ target_link_libraries(KDL ${catkin_LIBRARIES})
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+target_link_libraries(dhtoURDF
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(parser
+  ${catkin_LIBRARIES}
+)
+
 
 #############
 ## Install ##
@@ -247,31 +217,10 @@ install(
 #############
 
 ## Add gtest based cpp test target and link libraries
-<<<<<<< HEAD
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_anro4.cpp)
-=======
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_anro3.cpp)
->>>>>>> e9afb598f24f886246caffb075bcf923fafa26f8
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_anro2.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-<<<<<<< HEAD
-include_directories(include ${catkin_INCLUDE_DIRS})
-
-add_executable(jcmd src/jcmd.cpp)
-add_executable(jint src/jint.cpp)
-add_executable(oint src/oint.cpp)
-add_executable(ocmd src/ocmd.cpp)
-target_link_libraries(jcmd ${catkin_LIBRARIES})
-target_link_libraries(jint ${catkin_LIBRARIES})
-target_link_libraries(oint ${catkin_LIBRARIES})
-target_link_libraries(ocmd ${catkin_LIBRARIES})
-add_dependencies(jcmd anro4_generate_messages_cpp)
-add_dependencies(jint anro4_generate_messages_cpp)
-add_dependencies(oint anro4_generate_messages_cpp)
-add_dependencies(ocmd anro4_generate_messages_cpp)
-=======
->>>>>>> e9afb598f24f886246caffb075bcf923fafa26f8

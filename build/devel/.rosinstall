@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/alobach/catkin_ws/src/anro/build/devel/setup.sh
