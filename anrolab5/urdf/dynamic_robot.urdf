@@ -1,0 +1,118 @@
+<robot name="dynamic_robot">
+ 
+ <link name="base_link">
+    <visual>
+	<origin xyz="0 0 0.125" rpy="0 0 0"/>
+      <geometry>
+         <box size="0.3 .3 .25"/>
+      </geometry>
+    </visual>
+  </link>
+  
+<link name="arm1">
+<visual>
+  <origin xyz="0 0 0.45" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.5" radius="0.02"/>
+    </geometry>
+</visual>
+</link>
+
+<joint name="base_to_cyl1" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm1"/>
+  </joint>
+  
+ <link name="cyl1">
+ <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+   <geometry>
+    <cylinder length="0.5" radius="0.2"/>
+   </geometry>
+ </visual>
+</link>
+
+
+<joint name="joint1" type="continuous">
+    <parent link="arm1"/>
+    <child link="cyl1"/>
+    <origin xyz="0 0 0.9" rpy="0 0 0" /> 
+    <axis xyz="0 0 1" rpy="0 0 0" />
+  </joint>
+  
+<link name="arm2">
+<visual>
+  <origin xyz="0.45 0 0" rpy="0 1.57 0"/>
+    <geometry>
+      <cylinder length="0.6" radius="0.02"/>
+    </geometry>
+</visual>
+</link>
+ 
+ <joint name="base_to_cyl2" type="fixed">
+    <parent link="cyl1"/>
+    <child link="arm2"/>
+  </joint>
+  
+  <link name="cyl2">
+ <visual>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+   <geometry>
+    <cylinder length="0.5" radius="0.2"/>
+   </geometry>
+ </visual>
+</link>
+  
+  <joint name="joint2" type="revolute">
+    <parent link="arm2"/>
+    <child link="cyl2"/>
+    <origin xyz="0.9 0 0" rpy="0 0 0" /> 
+    <axis xyz="0 0 1" rpy="0 0 0" />
+    <limit effort="1000.0" lower="-3.0" upper="3.0" velocity="0.5"/>
+  </joint>
+  
+ <link name="arm3">
+<visual>
+  <origin xyz="0.4 0 0.0" rpy="0 1.57 0"/>
+    <geometry>
+      <cylinder length="0.5" radius="0.02"/>
+    </geometry>
+</visual>
+</link>
+
+ <joint name="base_to_box" type="fixed">
+    <parent link="cyl2"/>
+    <child link="arm3"/>
+  </joint>
+ 
+ <link name="arm4">
+<visual>
+  <origin xyz="0.6 0 -0.2" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.6" radius="0.02"/>
+    </geometry>
+</visual>
+</link>
+
+ <joint name="base_to_box_2" type="fixed">
+    <parent link="arm3"/>
+    <child link="arm4"/>
+  </joint>
+  
+<link name="final_box">
+ <visual>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+ <geometry>
+	<box size="0.2 0.2 0.2"/>
+</geometry>
+ </visual>
+</link>
+ 
+   <joint name="joint3" type="prismatic">
+    <parent link="arm4"/>
+    <child link="final_box"/>
+    <origin xyz="0.6 0 -0.4" rpy="0 0 0" /> 
+    <axis xyz="0 0 -1" rpy="0 0 0" />
+    <limit effort="1000.0" lower= "-0.15" upper="0.15" velocity ="0.4"/>
+  </joint>
+  </robot>
