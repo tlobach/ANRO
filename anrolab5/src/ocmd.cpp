@@ -5,7 +5,7 @@
 
 double const PI=M_PI;
 double f=10;
-double a_elip=1.5,b_elip=0.7;
+double elips_1=1.5,elips_2=0.7;
 
 int main(int argc, char **argv)
 {
@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 	int wierzcholek; // Numer wierzcholka
 	double x; // Zmienna dotycząca elipsy
 	int kierunek; // Kierunek poruszania się elipsy 1-lewo, 2-prawo
+
 	if(wybor==1) // Ruch po prostokacie
 		{	
 			wierzcholek=1;
@@ -78,8 +79,8 @@ int main(int argc, char **argv)
     			srv.request.z = 0.5;
     			srv.request.time = 5;
 
-			srv.request.x = a_elip*cos(0);
-  			srv.request.y = b_elip*sin(0);
+			srv.request.x = elips_1*cos(0);
+  			srv.request.y = elips_2*sin(0);
 			srv.request.time = 2;
 			klient.call(srv);
   			ros::Duration(2).sleep();
@@ -87,20 +88,20 @@ int main(int argc, char **argv)
 			srv.request.time = dt;
 			double phi=0;
 			while(phi<=2*PI){
-	  			srv.request.x = a_elip*cos(phi);
-  	  			srv.request.y = b_elip*sin(phi);
+	  			srv.request.x = elips_1*cos(phi);
+  	  			srv.request.y = elips_2*sin(phi);
 	  			klient.call(srv);
   	  			ros::Duration(dt).sleep();
 	  			phi+=0.1;
 			}
-	  		srv.request.x = a_elip*cos(0);
-  	  		srv.request.y = b_elip*sin(0);
+	  		srv.request.x = elips_1*cos(0);
+  	  		srv.request.y = elips_2*sin(0);
 	  		klient.call(srv);
 	  		ros::Duration(dt).sleep();			
 
 		}	
 		if(klient.call(srv)){
-      				ROS_INFO("Service called, %s", srv.response.status.c_str());
+      				ROS_INFO("Done");
    		}else{
       				ROS_ERROR("Failed to call service.");
     				}
